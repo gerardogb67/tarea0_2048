@@ -12,15 +12,30 @@ html{
 
 body{
 	display: flex;
+	flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#infoJuego{
-	/*border: 2px solid black;*/
+.infoJuego{
+	display: block;
+/*	border: 2px solid black;*/
 	height: 150px;
 	width: 500px;
 	position: relative;
+	margin-bottom: 10px;
+
+}
+
+.tablero {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+/*	border: 2px solid black;*/
+	height: 600px;
+	width: 500px;
+	margin-bottom: 10px;
+
 }
 
 .contenedorPuntaje {
@@ -53,5 +68,27 @@ body{
 	color: rgb(115, 99, 85);
 	margin: 0px;
 	font-size: 20px;	
+}
 
+.tabFondo{
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: end;
+	justify-content: start;
+
+	height: 461px;
+	width: 400px;
+	border-radius: 15px;
+
+	border: 2px solid rgb(191, 167, 138);
+	background-color: rgb(191, 167, 138);
+}
+
+.casilla {
+	height: 78px;
+	width: 78px;
+	margin: 10px;
+	border: 2px solid rgb(217, 194, 173);
+	background-color: rgb(217, 194, 173);
+	border-radius: 5px;
 }
