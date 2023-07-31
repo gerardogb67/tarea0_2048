@@ -5,12 +5,19 @@ html {
 }
 
 #main-title {
-   font-size: 45px;
+    font-size: clamp(35px, 10vw, 100px);
    color: rgb(115, 74, 192); 
+    margin-bottom: 0px;
+}
 
+#autores {
+    font-size: clamp(15px, 3vw, 35px);
+    color: green;
 }
 
 #boton-iniciar {
+    font-size: clamp(16px, 3vw, 50px);
+    font-family: 'Handjet', cursive;
     background-color: rgb(115, 74, 192);
     color: rgb(240, 235, 180);
     border-radius: 25px;
@@ -19,11 +26,17 @@ html {
 }
 
 .parrafo-estandar {
-    font-size: 30px;
+    font-size: clamp(20px, 4vw, 50px);
     color:green;
 }
 
 .opciones {
+    font-size: clamp(15px, 3vw, 35px);
     color: green;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    cursor: pointer;
 }
