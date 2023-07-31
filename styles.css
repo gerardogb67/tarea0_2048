@@ -1,9 +1,29 @@
-html{
+html {
     font-family: 'Handjet', cursive;
+    text-align: center;
+    background-color: rgb(240, 235, 180);
 }
 
 #main-title {
    font-size: 45px;
-   color: blue; 
-   text-align: center;
+   color: rgb(115, 74, 192); 
+
+}
+
+#boton-iniciar {
+    background-color: rgb(115, 74, 192);
+    color: rgb(240, 235, 180);
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.parrafo-estandar {
+    font-size: 30px;
+    color:green;
+}
+
+.opciones {
+    color: green;
+    margin-bottom: 25px;
 }
