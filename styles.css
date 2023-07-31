@@ -1,0 +1,9 @@
+html{
+    font-family: 'Handjet', cursive;
+}
+
+#main-title {
+   font-size: 45px;
+   color: blue; 
+   text-align: center;
+}
