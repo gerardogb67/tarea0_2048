@@ -1,0 +1,94 @@
+html{
+    font-family: 'Handjet', cursive;
+    background-color: rgb(242, 239, 233);
+}
+
+#main-title {
+   font-size: 65px;
+   color: rgb(115, 99, 85); 
+   text-align: left;
+   margin: 10px;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoJuego{
+	display: block;
+/*	border: 2px solid black;*/
+	height: 150px;
+	width: 500px;
+	position: relative;
+	margin-bottom: 10px;
+
+}
+
+.tablero {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+/*	border: 2px solid black;*/
+	height: 600px;
+	width: 500px;
+	margin-bottom: 10px;
+
+}
+
+.contenedorPuntaje {
+	color: beige;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	height: 70px;
+	width: 210px;
+	margin: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.puntaje {
+	display: flex;
+	margin: 5px;
+	height: 55px;
+	width: 90px;
+	border: 2px solid rgb(115, 99, 85);
+	border-radius: 10px;
+	flex-direction: column-reverse;
+	justify-content: start;
+	align-items: center;
+	background-color: rgb(191, 167, 138);
+}
+
+.textPun{
+	color: rgb(115, 99, 85);
+	margin: 0px;
+	font-size: 20px;	
+}
+
+.tabFondo{
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: end;
+	justify-content: start;
+
+	height: 461px;
+	width: 400px;
+	border-radius: 15px;
+
+	border: 2px solid rgb(191, 167, 138);
+	background-color: rgb(191, 167, 138);
+}
+
+.casilla {
+	height: 78px;
+	width: 78px;
+	margin: 10px;
+	border: 2px solid rgb(217, 194, 173);
+	background-color: rgb(217, 194, 173);
+	border-radius: 5px;
+}
