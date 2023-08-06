@@ -6,7 +6,7 @@ html {
 
 #main-title {
     font-size: clamp(35px, 10vw, 100px);
-   color: rgb(115, 74, 192); 
+    color: rgb(115, 74, 192); 
     margin-bottom: 0px;
 }
 
