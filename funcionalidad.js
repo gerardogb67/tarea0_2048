@@ -4,6 +4,13 @@ var score = 0;
 var rows = 5;
 var columns = 4;
 
+var casillaAct;
+var casRow = 0;
+var casCol = 0;
+
+// 0 = moveLeft, 1 = movRight
+flagMov = 0;
+
 window.onload = function() {
     playGame();
     newCasilla();
@@ -112,9 +119,10 @@ function newCasilla(){
     let cNum = updateNumCasilla();
     board[0][col] = cNum;
 
+    casCol = col;
     let idCasilla = "0" + col.toString();
-    let c = document.getElementById(idCasilla);
-    filaInicial(c, cNum);
+    casillaAct = document.getElementById(idCasilla);
+    filaInicial(casillaAct, cNum);
 }
 
 function getRandomNumber() {
@@ -127,8 +135,51 @@ function updateNumCasilla() {
     return values[index];
 }
 
-document.addEventListener("keyup", (e) =>{
-    if (e.code == "ArrowLeft"){
-        moveLeft();
+window.addEventListener("keyup", (e) => {
+    if (e.code == "ArrowLeft" && casCol > 0){
+        casCol--;
+        flagMov = 0;
+        moveCasilla();
     }
-})
+
+    if (e.code == "ArrowRight" && casCol < columns - 1){
+        casCol++;
+        flagMov = 1;
+        moveCasilla();
+    }
+});
+
+function moveCasilla() {
+    let colBefore;
+    if (flagMov == 0){
+        colBefore = casCol + 1;
+    }else if(flagMov == 1){
+        colBefore = casCol - 1;
+    }
+
+    let  valueAfter = board[casRow][casCol];
+    let  valueBefore = board[casRow][colBefore];
+    let cValue = 0;
+    let idCasilla;
+    
+
+    if (valueAfter == 0 || valueBefore == valueAfter){
+        if(valueBefore == valueAfter){
+            cValue = valueBefore + valueAfter;
+            score += cValue;
+        }else{
+            cValue = valueBefore;
+        }
+    
+        board[casRow][casCol] = cValue;
+        idCasilla = casRow.toString() + casCol.toString();
+        casillaAct = document.getElementById(idCasilla);
+        filaInicial(casillaAct, cValue);
+        
+        board[casRow][colBefore] = 0;
+        idCasilla = casRow.toString() + colBefore.toString();
+        casillaAct = document.getElementById(idCasilla);
+        filaInicial(casillaAct, 0);
+    }
+    
+}
