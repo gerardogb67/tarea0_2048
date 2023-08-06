@@ -6,6 +6,7 @@ var columns = 4;
 
 window.onload = function() {
     playGame();
+    newCasilla();
 }
 
 function playGame(){
@@ -51,6 +52,8 @@ function filaInicial(c, num){
             c.classList.add("num2");
         }else if(num == 4){
             c.classList.add("num4");
+        }else if(num == 8){
+            c.classList.add("num8");
         }else if(num == 16){
             c.classList.add("num16");
         }else if(num == 32){
@@ -82,6 +85,8 @@ function actualizarc(c, num){
             c.classList.add("num2");
         }else if(num == 4){
             c.classList.add("num4");
+        }else if(num == 8){
+            c.classList.add("num8");
         }else if(num == 16){
             c.classList.add("num16");
         }else if(num == 32){
@@ -102,9 +107,28 @@ function actualizarc(c, num){
     }
 }
 
-function cambio_color(id) {
-    console.log(id)
-    casilla = document.getElementById(id)
-    casilla.style.backgroundColor = 'red'
-    casilla.innerHTML = '<p class="letraTablero">A</p>'
+function newCasilla(){
+    let col = getRandomNumber();
+    let cNum = updateNumCasilla();
+    board[0][col] = cNum;
+
+    let idCasilla = "0" + col.toString();
+    let c = document.getElementById(idCasilla);
+    filaInicial(c, cNum);
+}
+
+function getRandomNumber() {
+    return Math.floor(Math.random() * 4); // Devuelve un número entero entre 0 y 3 (ambos incluidos).
+}
+
+function updateNumCasilla() {
+    let index = Math.floor(Math.random() * 5);
+    let values = [2, 4, 2, 8, 2];
+    return values[index];
+}
+
+document.addEventListener("keyup", (e) =>{
+    if (e.code == "ArrowLeft"){
+        moveLeft();
     }
+})
