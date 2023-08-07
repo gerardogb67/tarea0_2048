@@ -1,8 +1,8 @@
 board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [0, 0, 0, 2],
-    [0, 0, 0, 4],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
     [0, 0, 0, 0],
 ]
 var score = 0;
@@ -18,11 +18,11 @@ let id_interval;
 flagMov = 0;
 
 window.onload = function() {
-    playGame();
+    paint_board();
     newCasilla();
 }
 
-function playGame(){
+function paint_board(){
     for (let row = 0; row < rows; row++){
         for (let column = 0; column < columns; column++){
             let c = document.createElement("div");
@@ -41,19 +41,8 @@ function actualizar_casilla(casilla, num, esPrimera){
     casilla.innerText = "";
     casilla.classList.value = "";
     esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
-    switch (num) {
-        case 2: casilla.classList.add("num2"); break;
-        case 4: casilla.classList.add("num4"); break;
-        case 8: casilla.classList.add("num8"); break;
-        case 16: casilla.classList.add("num16"); break;
-        case 32: casilla.classList.add("num32"); break;
-        case 64: casilla.classList.add("num64"); break;
-        case 128: casilla.classList.add("num128"); break;
-        case 256: casilla.classList.add("num256"); break;
-        case 512: casilla.classList.add("num512"); break;
-        case 1024: casilla.classList.add("num1024"); break;
-        case 2048: casilla.classList.add("num2048"); break;
-    }
+    if (num != 0 || num > 2048)
+        casilla.classList.add("num"+num.toString());
 }
 
 function get_random_column() {
@@ -66,7 +55,6 @@ function get_random_initial_value() {
     return values[index];
 }
 
-// e = es el evento
 window.addEventListener("keyup", (e) => {
     if (e.code == "ArrowLeft" && columnaActual > 0){
         if (board[filaActual][columnaActual - 1] == 0 || board[filaActual][columnaActual - 1] == board[filaActual][columnaActual]){
@@ -91,12 +79,13 @@ function newCasilla(){
     let cNum = get_random_initial_value();
     board[0][col] = cNum;
 
+    filaActual = 0;
     columnaActual = col;
     let idCasilla = "0" + col.toString();
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
     actualizar_casilla(casillaActual, cNum, true);
     
-    id_interval = setInterval(move_casilla_down, 1000);
+    id_interval = setInterval(move_casilla_down, 600);
 }
 
 function clean_previous_block(){
@@ -106,21 +95,21 @@ function clean_previous_block(){
     actualizar_casilla(casillaActual, 0, filaActual == 0);
 }
 
-function moveCasilla(previous_value) {
+function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
     board[filaActual][columnaActual] += previous_value;
+    score += board[filaActual][columnaActual];
     casillaActual = document.getElementById(idCasilla);
     actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
 }
 
-
-function move_casilla_down(casilla){
-    let idCasilla = filaActual.toString() + columnaActual.toString();
+function move_casilla_down(){
+    if (filaActual == 4 || (board[filaActual + 1][columnaActual] != 0 && board[filaActual + 1][columnaActual] != board[filaActual][columnaActual])){
+        clearInterval(id_interval);
+        newCasilla();
+    }
     let temp = board[filaActual][columnaActual];
     clean_previous_block();
     filaActual++;
     moveCasilla(temp);
-    if (filaActual == 4 || (!board[filaActual + 1][columnaActual] == 0 && !board[filaActual + 1][columnaActual] == board[filaActual][columnaActual]))
-        clearInterval(id_interval);
 }
-    
