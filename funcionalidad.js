@@ -1,13 +1,19 @@
-
-var board;
+board = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 2],
+    [0, 0, 0, 4],
+    [0, 0, 0, 0],
+]
 var score = 0;
 var rows = 5;
 var columns = 4;
 
-var casillaAct;
-var casRow = 0;
-var casCol = 0;
+var casillaActual;
+var filaActual = 0;
+var columnaActual = 0;
 
+let id_interval;
 // 0 = moveLeft, 1 = movRight
 flagMov = 0;
 
@@ -17,169 +23,104 @@ window.onload = function() {
 }
 
 function playGame(){
-    board = [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ]
-    
     for (let row = 0; row < rows; row++){
-        for (let colum = 0; colum < columns; colum++){
-            if (row == 0){
-                let c = document.createElement("div");
-                c.id = row.toString() + colum.toString();
-
-                let num = board[row][colum];
-                filaInicial(c, num);
-                document.getElementById("board").append(c);
-            }else{
-                // Crea un div nuevo, para crear una pieza para jugar
-                let c = document.createElement("div");
-                c.id = row.toString() + colum.toString();
-
-                let num = board[row][colum];
-                actualizarc(c, num);
-                document.getElementById("board").append(c);
-            }
+        for (let column = 0; column < columns; column++){
+            let c = document.createElement("div");
+            c.id = row.toString() + column.toString();
+            let num = board[row][column];
             
+            actualizar_casilla(c, num, row == 0);
+            
+            document.getElementById("board").append(c);
         }
     }
 }
 
-function filaInicial(c, num){
-    c.innerText = "";
-    c.classList.value = "";
-    c.classList.add("casillaI");
-
-    if (num > 0){
-        c.innerText = num;
-        if (num == 2){
-            c.classList.add("num2");
-        }else if(num == 4){
-            c.classList.add("num4");
-        }else if(num == 8){
-            c.classList.add("num8");
-        }else if(num == 16){
-            c.classList.add("num16");
-        }else if(num == 32){
-            c.classList.add("num32");
-        }else if(num == 64){
-            c.classList.add("num64");
-        }else if(num == 128){
-            c.classList.add("num128");
-        }else if(num == 256){
-            c.classList.add("num256");
-        }else if(num == 512){
-            c.classList.add("num512");
-        }else if(num == 1024){
-            c.classList.add("num1024");
-        }else if(num == 2048){
-            c.classList.add("num2048");
-        }
+// Cambia el contenido de la casilla y pone el correspondiente al numero que tiene que ser
+function actualizar_casilla(casilla, num, esPrimera){
+    casilla.innerText = "";
+    casilla.classList.value = "";
+    esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
+    switch (num) {
+        case 2: casilla.classList.add("num2"); break;
+        case 4: casilla.classList.add("num4"); break;
+        case 8: casilla.classList.add("num8"); break;
+        case 16: casilla.classList.add("num16"); break;
+        case 32: casilla.classList.add("num32"); break;
+        case 64: casilla.classList.add("num64"); break;
+        case 128: casilla.classList.add("num128"); break;
+        case 256: casilla.classList.add("num256"); break;
+        case 512: casilla.classList.add("num512"); break;
+        case 1024: casilla.classList.add("num1024"); break;
+        case 2048: casilla.classList.add("num2048"); break;
     }
 }
 
-function actualizarc(c, num){
-    c.innerText = "";
-    c.classList.value = "";
-    c.classList.add("casilla");
-
-    if (num > 0){
-        c.innerText = num;
-        if (num == 2){
-            c.classList.add("num2");
-        }else if(num == 4){
-            c.classList.add("num4");
-        }else if(num == 8){
-            c.classList.add("num8");
-        }else if(num == 16){
-            c.classList.add("num16");
-        }else if(num == 32){
-            c.classList.add("num32");
-        }else if(num == 64){
-            c.classList.add("num64");
-        }else if(num == 128){
-            c.classList.add("num128");
-        }else if(num == 256){
-            c.classList.add("num256");
-        }else if(num == 512){
-            c.classList.add("num512");
-        }else if(num == 1024){
-            c.classList.add("num1024");
-        }else if(num == 2048){
-            c.classList.add("num2048");
-        }
-    }
-}
-
-function newCasilla(){
-    let col = getRandomNumber();
-    let cNum = updateNumCasilla();
-    board[0][col] = cNum;
-
-    casCol = col;
-    let idCasilla = "0" + col.toString();
-    casillaAct = document.getElementById(idCasilla);
-    filaInicial(casillaAct, cNum);
-}
-
-function getRandomNumber() {
+function get_random_column() {
     return Math.floor(Math.random() * 4); // Devuelve un número entero entre 0 y 3 (ambos incluidos).
 }
 
-function updateNumCasilla() {
+function get_random_initial_value() {
     let index = Math.floor(Math.random() * 5);
     let values = [2, 4, 2, 8, 2];
     return values[index];
 }
 
+// e = es el evento
 window.addEventListener("keyup", (e) => {
-    if (e.code == "ArrowLeft" && casCol > 0){
-        casCol--;
-        flagMov = 0;
-        moveCasilla();
+    if (e.code == "ArrowLeft" && columnaActual > 0){
+        if (board[filaActual][columnaActual - 1] == 0 || board[filaActual][columnaActual - 1] == board[filaActual][columnaActual]){
+            let temp = board[filaActual][columnaActual];
+            clean_previous_block();
+            columnaActual--;
+            moveCasilla(temp);
+        }
     }
-
-    if (e.code == "ArrowRight" && casCol < columns - 1){
-        casCol++;
-        flagMov = 1;
-        moveCasilla();
+    if (e.code == "ArrowRight" && columnaActual < columns - 1){
+        if (board[filaActual][columnaActual + 1] == 0 || board[filaActual][columnaActual + 1] == board[filaActual][columnaActual]){
+            let temp = board[filaActual][columnaActual];
+            clean_previous_block();
+            columnaActual++;
+            moveCasilla(temp);
+        }
     }
 });
 
-function moveCasilla() {
-    let colBefore;
-    if (flagMov == 0){
-        colBefore = casCol + 1;
-    }else if(flagMov == 1){
-        colBefore = casCol - 1;
-    }
+function newCasilla(){
+    let col = get_random_column();
+    let cNum = get_random_initial_value();
+    board[0][col] = cNum;
 
-    let  valueAfter = board[casRow][casCol];
-    let  valueBefore = board[casRow][colBefore];
-    let cValue = 0;
-    let idCasilla;
+    columnaActual = col;
+    let idCasilla = "0" + col.toString();
+    casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
+    actualizar_casilla(casillaActual, cNum, true);
     
-
-    if (valueAfter == 0 || valueBefore == valueAfter){
-        if(valueBefore == valueAfter){
-            cValue = valueBefore + valueAfter;
-            score += cValue;
-        }else{
-            cValue = valueBefore;
-        }
-    
-        board[casRow][casCol] = cValue;
-        idCasilla = casRow.toString() + casCol.toString();
-        casillaAct = document.getElementById(idCasilla);
-        filaInicial(casillaAct, cValue);
-        
-        board[casRow][colBefore] = 0;
-        idCasilla = casRow.toString() + colBefore.toString();
-        casillaAct = document.getElementById(idCasilla);
-        filaInicial(casillaAct, 0);
-    }
-    
+    id_interval = setInterval(move_casilla_down, 1000);
 }
+
+function clean_previous_block(){
+    board[filaActual][columnaActual] = 0;
+    idCasilla = filaActual.toString() + columnaActual.toString();
+    casillaActual = document.getElementById(idCasilla);
+    actualizar_casilla(casillaActual, 0, filaActual == 0);
+}
+
+function moveCasilla(previous_value) {
+    let idCasilla = filaActual.toString() + columnaActual.toString(); 
+    board[filaActual][columnaActual] += previous_value;
+    casillaActual = document.getElementById(idCasilla);
+    actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
+}
+
+
+function move_casilla_down(casilla){
+    let idCasilla = filaActual.toString() + columnaActual.toString();
+    let temp = board[filaActual][columnaActual];
+    clean_previous_block();
+    filaActual++;
+    moveCasilla(temp);
+    if (filaActual == 4 || (!board[filaActual + 1][columnaActual] == 0 && !board[filaActual + 1][columnaActual] == board[filaActual][columnaActual]))
+        clearInterval(id_interval);
+}
+    
