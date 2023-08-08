@@ -40,8 +40,14 @@ function paint_board(){
 function actualizar_casilla(casilla, num, esPrimera){
     casilla.innerText = "";
     casilla.classList.value = "";
-    esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
-    if (num != 0 || num > 2048)
+    casilla.classList.add("casilla");
+    //esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
+
+    // if (num != 0){
+    //     casilla.innerText = num;
+    // }
+    casilla.innerText = num;
+    if (num < 2048 || num != 0)
         casilla.classList.add("num"+num.toString());
 }
 
@@ -79,13 +85,14 @@ function newCasilla(){
     let cNum = get_random_initial_value();
     board[0][col] = cNum;
 
-    filaActual = 0;
+    
     columnaActual = col;
     let idCasilla = "0" + col.toString();
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
+ 
     actualizar_casilla(casillaActual, cNum, true);
-    
-    id_interval = setInterval(move_casilla_down, 600);
+    id_interval = setInterval(move_casilla_down,900);
+    filaActual = 1;
 }
 
 function clean_previous_block(){
@@ -97,19 +104,24 @@ function clean_previous_block(){
 
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
-    board[filaActual][columnaActual] += previous_value;
-    score += board[filaActual][columnaActual];
-    casillaActual = document.getElementById(idCasilla);
-    actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
+
+    if(board[filaActual][columnaActual] == 0 || board[filaActual][columnaActual] == previous_value){
+        board[filaActual][columnaActual] += previous_value;
+        score += board[filaActual][columnaActual];
+        casillaActual = document.getElementById(idCasilla);
+        actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
+    }
+    
 }
 
 function move_casilla_down(){
     if (filaActual == 4 || (board[filaActual + 1][columnaActual] != 0 && board[filaActual + 1][columnaActual] != board[filaActual][columnaActual])){
         clearInterval(id_interval);
-        newCasilla();
+        newCasilla(); 
     }
     let temp = board[filaActual][columnaActual];
     clean_previous_block();
     filaActual++;
     moveCasilla(temp);
+    
 }

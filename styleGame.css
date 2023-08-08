@@ -76,19 +76,21 @@ body{
 	height: 500px;
 	width: 400px;
 	
-	background-color: rgb(240, 235, 180);
+	background-color: rgb(115, 74, 192);
 	border: 6px solid rgb(115, 74, 192);
 	border-radius: 10px;
 
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .casilla {
 	height: 90px;
 	width: 90px;
 	border: 5px solid rgb(115, 74, 192);
+	background-color: rgb(240, 235, 180);
 
 	font-size: 40px;
 	font-weight: bold;
