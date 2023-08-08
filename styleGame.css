@@ -1,13 +1,6 @@
 html{
     font-family: 'Handjet', cursive;
-    background-color: rgb(242, 239, 233);
-}
-
-#main-title {
-   font-size: 65px;
-   color: rgb(115, 99, 85); 
-   text-align: left;
-   margin: 10px;
+    background-color: rgb(240, 235, 180);
 }
 
 body{
@@ -18,77 +11,189 @@ body{
 }
 
 .infoJuego{
-	display: block;
-/*	border: 2px solid black;*/
-	height: 150px;
-	width: 500px;
-	position: relative;
+	display: flex;
+	/* border: 2px solid black; */
+	height: 80px;
+	width: 400px;
+	
 	margin-bottom: 10px;
+	justify-content: space-between;
 
 }
 
-.tablero {
-	display: flex;
-	justify-content: center;
-    align-items: center;
-/*	border: 2px solid black;*/
-	height: 600px;
-	width: 500px;
-	margin-bottom: 10px;
+.mainTitle {
+	height: 60px;
+	width: 4500px;
 
+	font-size: 60px;
+	color: rgb(115, 74, 192); 
+
+	text-align: left;
+	margin: 10px;
 }
 
 .contenedorPuntaje {
-	color: beige;
-	display: flex;
-	flex-direction: row;
-	justify-content: left;
 	height: 70px;
 	width: 210px;
+	
+	/* background-color: blanchedalmond;
+	border: 6px solid rgb(115, 74, 192); */
+
+	display: flex;
+	justify-content: flex-end;
 	margin: 10px;
-	position: absolute;
-	top: 0;
-	right: 0;
 }
 
 .puntaje {
-	display: flex;
-	margin: 5px;
-	height: 55px;
-	width: 90px;
-	border: 2px solid rgb(115, 99, 85);
+	height: 60px;
+	width: 100px;
+	
+	background-color: rgb(249, 255, 207);
+	border: 3px solid rgb(164, 179, 52);
 	border-radius: 10px;
-	flex-direction: column-reverse;
-	justify-content: start;
-	align-items: center;
-	background-color: rgb(191, 167, 138);
-}
 
-.textPun{
-	color: rgb(115, 99, 85);
-	margin: 0px;
-	font-size: 20px;	
-}
-
-.tabFondo{
 	display: flex;
-	flex-direction: row-reverse;
-	align-items: end;
-	justify-content: start;
+	flex-direction: column;
 
-	height: 461px;
+	text-align: center;
+}
+
+.tittlePun{
+	color: rgb(164, 179, 52);
+	margin: 0px;
+	font-size: 30px;	
+}
+
+.numPun{
+	color: black;
+	margin: -6px;
+	font-size: 25px;	
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+#board {
+	height: 500px;
 	width: 400px;
-	border-radius: 15px;
+	
+	background-color: rgb(240, 235, 180);
+	border: 6px solid rgb(115, 74, 192);
+	border-radius: 10px;
 
-	border: 2px solid rgb(191, 167, 138);
-	background-color: rgb(191, 167, 138);
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .casilla {
-	height: 78px;
-	width: 78px;
-	margin: 10px;
-	border: 2px solid rgb(217, 194, 173);
-	background-color: rgb(217, 194, 173);
-	border-radius: 5px;
+	height: 90px;
+	width: 90px;
+	border: 5px solid rgb(115, 74, 192);
+
+	font-size: 40px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.casillaI{
+	height: 90px;
+	width: 90px;
+	border: 5px solid rgb(115, 74, 192);
+	background-color: rgb(115, 74, 192);
+
+	font-size: 40px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.num2{
+	background-color: rgb(250, 158, 209);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num4{
+	background-color: rgb(220, 140, 222);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num8{
+	background-color: rgb(222, 168, 246);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num16{
+	background-color: rgb(175, 140, 222);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num32{
+	background-color: rgb(172, 158, 250);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num64{
+	background-color: rgb(217, 165, 216);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num128{
+	background-color: rgb(213, 172, 227);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num256{
+	background-color: rgb(185, 167, 205);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num512{
+	background-color: rgb(183, 172, 227);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num1024{
+	background-color: rgb(165, 169, 217);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num2048{
+	background-color: rgb(164, 179, 52);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
 }

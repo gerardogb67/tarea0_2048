@@ -4,59 +4,24 @@
     <title>2048 Game</title>
     <link href="styleGame.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet"> 
+    
 </head>
 <body>
     <div class="infoJuego">
-        <h1 id="main-title">2048 Game</h1>
+        <h1 class="mainTitle" id="main-title">2048 Game</h1>
         <div class="contenedorPuntaje">
 
             <div class="puntaje">
-                <h3 class="textPun">SCORE</h3>
-            </div>
-
-            <div class="puntaje">
-                <h3 class="textPun">BEST</h3>
+                <h3 class="tittlePun">SCORE</h3>
+                <h2 class="numPun">1</h2>
             </div>
 
         </div>    
     </div>
-
-    <div class="tablero">
-        <div class="tabFondo">
-            
-            <div class="columna">
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-            </div>
-
-            <div class="columna">
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-            </div>
-
-            <div class="columna">
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-            </div>
-
-            <div class="columna">
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-                <div class="casilla"></div>
-            </div>
-
-            
-
-
-        </div>
+        <div id="board"></div>
     </div>
-    
+
+    <script src="funcionalidad.js"></script>
 </body>
 </html>
