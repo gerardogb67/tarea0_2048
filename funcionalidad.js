@@ -14,11 +14,14 @@ var filaActual = 0;
 var columnaActual = 0;
 
 let id_interval;
+var intervalos = [];
+
 // 0 = moveLeft, 1 = movRight
 flagMov = 0;
 
 window.onload = function() {
     paint_board();
+    actualizarScore();
     newCasilla();
 }
 
@@ -41,14 +44,22 @@ function actualizar_casilla(casilla, num, esPrimera){
     casilla.innerText = "";
     casilla.classList.value = "";
     casilla.classList.add("casilla");
-    //esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
+    esPrimera ? casilla.classList.add("casillaI") : casilla.classList.add("casilla");
 
-    // if (num != 0){
-    //     casilla.innerText = num;
-    // }
-    casilla.innerText = num;
+    if (num != 0){
+        casilla.innerText = num;
+    }
+    
     if (num < 2048 || num != 0)
         casilla.classList.add("num"+num.toString());
+}
+
+function get_casilla_disponible_abajo(){
+    let temp = filaActual;
+    while (temp + 1 < rows && board[temp + 1][columnaActual] === 0) {
+        temp++;
+    }
+    return temp;
 }
 
 function get_random_column() {
@@ -78,21 +89,53 @@ window.addEventListener("keyup", (e) => {
             moveCasilla(temp);
         }
     }
+    if (e.code == "ArrowDown" && filaActual < 4){
+        let temp = board[filaActual][columnaActual];
+        clean_previous_block();
+        filaActual = get_casilla_disponible_abajo();
+        moveCasilla(temp);
+    }
 });
+
+function validNewCasilla(col){
+    let num1 = board[0][col];
+    let num2 = board[1][col];
+
+    if (board[0][col] != board[1][col] && board[1][col] != 0){
+        document.getElementById("gameOver").style.display="flex"; 
+
+        //Así es para hacer la ventanita del ganador, pero todavía no sé donde va jeje
+        //document.getElementById("congrats").style.display="flex"; 
+        return true;
+    }
+}
 
 function newCasilla(){
     let col = get_random_column();
     let cNum = get_random_initial_value();
     board[0][col] = cNum;
 
+    let result = validNewCasilla(col);
+
+    if(result == true){
+        detenerIntervalos();
+        return;
+    }
     
+    filaActual = 0;
     columnaActual = col;
     let idCasilla = "0" + col.toString();
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
  
     actualizar_casilla(casillaActual, cNum, true);
-    id_interval = setInterval(move_casilla_down,900);
-    filaActual = 1;
+    id_interval = setInterval(move_casilla_down, 1000);
+    intervalos.push(id_interval);
+}
+
+function detenerIntervalos() {
+    for (var i = 0; i < intervalos.length; i++) {
+        clearInterval(intervalos[i]);
+    }
 }
 
 function clean_previous_block(){
@@ -102,12 +145,55 @@ function clean_previous_block(){
     actualizar_casilla(casillaActual, 0, filaActual == 0);
 }
 
+function actualizarScore(){
+    let textScore = document.getElementById("score");
+    textScore.innerText = "";
+    textScore.innerText = score.toString();
+}
+
+function actualizarMatriz(){
+    for (let row = 4; row > 0; row--){
+        for (let column = 0; column < columns; column++){
+            let rowBefore = row - 1;
+
+            if (board[row][column] == 0 && board[rowBefore][column] != 0){
+                let valueBefore = board[rowBefore][column];
+
+                board[row][column] = valueBefore;
+                board[rowBefore][column] = 0;
+
+                let idCasilla = row.toString() + column.toString(); 
+                let casillaAct = document.getElementById(idCasilla);
+                actualizar_casilla(casillaAct, valueBefore, false);
+
+                let idCasilla2 = rowBefore.toString() + column.toString(); 
+                let casillaAct2 = document.getElementById(idCasilla2);
+                actualizar_casilla(casillaAct2, 0, false);
+
+            }else if(board[row][column] == board[rowBefore][column]){
+                let valueBefore = board[rowBefore][column];
+
+                board[row][column] += valueBefore;
+                board[rowBefore][column] = 0;
+
+                let idCasilla = row.toString() + column.toString(); 
+                let casillaAct = document.getElementById(idCasilla);
+                actualizar_casilla(casillaAct, valueBefore + valueBefore, false);
+            }
+        }
+    }
+}
+
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
 
     if(board[filaActual][columnaActual] == 0 || board[filaActual][columnaActual] == previous_value){
+        actualizarMatriz();
+        if (board[filaActual][columnaActual] == previous_value){
+            score += board[filaActual][columnaActual] + previous_value;
+        }
         board[filaActual][columnaActual] += previous_value;
-        score += board[filaActual][columnaActual];
+        actualizarScore();
         casillaActual = document.getElementById(idCasilla);
         actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
     }
@@ -115,13 +201,19 @@ function moveCasilla(previous_value){
 }
 
 function move_casilla_down(){
-    if (filaActual == 4 || (board[filaActual + 1][columnaActual] != 0 && board[filaActual + 1][columnaActual] != board[filaActual][columnaActual])){
-        clearInterval(id_interval);
-        newCasilla(); 
+    if (filaActual == -1){
+        filaActual = 0;
     }
-    let temp = board[filaActual][columnaActual];
-    clean_previous_block();
-    filaActual++;
-    moveCasilla(temp);
-    
+
+    if (filaActual == 4 || (board[filaActual + 1][columnaActual] != 0 && board[filaActual + 1][columnaActual] != board[filaActual][columnaActual])){
+        newCasilla();
+        clearInterval(id_interval);
+        filaActual = -1;
+
+    }else{
+        let temp = board[filaActual][columnaActual];
+        clean_previous_block();
+        filaActual++;
+        moveCasilla(temp);
+    }
 }

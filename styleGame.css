@@ -35,9 +35,6 @@ body{
 .contenedorPuntaje {
 	height: 70px;
 	width: 210px;
-	
-	/* background-color: blanchedalmond;
-	border: 6px solid rgb(115, 74, 192); */
 
 	display: flex;
 	justify-content: flex-end;
@@ -198,4 +195,44 @@ body{
 	font-size: 40px;
 	font-family: 'Handjet', cursive;
 	font-family: 'Patrick Hand', cursive;
+}
+
+.lose{
+	height: 200px;
+	width: 350px;
+
+	background-color: rgb(191, 17, 17);
+	border: 10px solid rgb(217, 41, 41);
+	border-radius: 50px;
+
+	font-size: 60px;
+	font-family: 'Russo One', sans-serif;
+
+	color: white; 
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+
+	position: absolute;
+	display: none;
+}
+
+.win{
+	height: 200px;
+	width: 350px;
+
+	background-color: rgb(14, 120, 70);
+	border: 10px solid rgb(14, 153, 88);
+	border-radius: 50px;
+
+	font-size: 60px;
+	font-family: 'Russo One', sans-serif;
+
+	color: white; 
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+
+	position: absolute;
+	display: none;
 }
