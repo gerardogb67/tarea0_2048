@@ -19,6 +19,26 @@ var intervalos = [];
 // 0 = moveLeft, 1 = movRight
 flagMov = 0;
 
+var boton = document.getElementById("tryAgain");
+
+boton.addEventListener("click", function() {
+    board = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ]
+
+    document.getElementById("board").textContent = "";
+    document.getElementById("gameOver").style.display = "none";
+    document.getElementById("tryAgain").style.display = "none";
+    paint_board();
+
+    score = 0;
+    newCasilla();
+});
+
 window.onload = function() {
     paint_board();
     actualizarScore();
@@ -103,7 +123,7 @@ function validNewCasilla(col){
 
     if (board[0][col] != board[1][col] && board[1][col] != 0){
         document.getElementById("gameOver").style.display="flex"; 
-
+        document.getElementById("tryAgain").style.display="flex";
         //Así es para hacer la ventanita del ganador, pero todavía no sé donde va jeje
         //document.getElementById("congrats").style.display="flex"; 
         return true;
@@ -128,7 +148,7 @@ function newCasilla(){
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
  
     actualizar_casilla(casillaActual, cNum, true);
-    id_interval = setInterval(move_casilla_down, 1000);
+    id_interval = setInterval(move_casilla_down, 600);
     intervalos.push(id_interval);
 }
 

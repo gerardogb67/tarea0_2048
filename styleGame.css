@@ -236,3 +236,17 @@ body{
 	position: absolute;
 	display: none;
 }
+
+#tryAgain{
+	padding: 12px 24px;
+	background-color: #4CAF50;
+	color: white;
+	font-size: 18px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+
+	position: fixed;
+	top: 420px;
+	display: none;
+}
