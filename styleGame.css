@@ -6,7 +6,7 @@ html{
 body{
 	display: flex;
     justify-content: center;
-
+	align-items: center;
 	align-content: center;
 }
 
@@ -118,8 +118,6 @@ body{
 .datosGame{
 	height: 30px;
 	width: 280px;
-
-	/* border: 3px solid black; */
 
 	display: flex;
 	justify-content: flex-start ;
@@ -269,6 +267,7 @@ body{
 	align-items: center;
 
 	position: absolute;
+	margin: 0px auto;
 	display: none;
 }
 
@@ -294,13 +293,16 @@ body{
 
 #tryAgain{
 	padding: 12px 24px;
-	background-color: #4CAF50;
+	font-family: 'Russo One', sans-serif;
 	color: white;
 	font-size: 18px;
-	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 
+	background-color: rgb(164, 179, 52);
+	border: 3px solid rgb(164, 179, 52);
+
+	margin-top: 30px;
 	position: fixed;
 	top: 420px;
 	display: none;

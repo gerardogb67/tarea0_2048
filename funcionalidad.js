@@ -15,6 +15,7 @@ var columnaActual = 0;
 
 let id_interval;
 var intervalos = [];
+let previousColum;
 
 let tiempo = 0;
 let id_intervalo_tiempo;
@@ -22,8 +23,9 @@ let id_intervalo_tiempo;
 let cantidad_movimientos = 0;
 
 let total_piezas = 0;
+
 // 0 = moveLeft, 1 = movRight
-flagMov = 0;
+let flagMov = 0;
 
 
 var boton = document.getElementById("tryAgain");
@@ -73,6 +75,9 @@ function paint_board(){
 
 // Cambia el contenido de la casilla y pone el correspondiente al numero que tiene que ser
 function actualizar_casilla(casilla, num, esPrimera){
+    total_piezas_tablero();
+    document.getElementById("sumaPiezasV").innerText = total_piezas.toString();
+
     casilla.innerText = "";
     casilla.classList.value = "";
     casilla.classList.add("casilla");
@@ -113,15 +118,11 @@ window.addEventListener("keyup", (e) => {
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
             columnaActual--;
-            let result = validNewCasilla(columnaActual);
+            flagMov = 0;
+            moveCasilla(temp);
 
-            if(result == true){
-                detenerIntervalos();
-                return;
-            }
             cantidad_movimientos++;
             document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
-            moveCasilla(temp);
         }
     }
     if (e.code == "ArrowRight" && columnaActual < columns - 1){
@@ -132,15 +133,11 @@ window.addEventListener("keyup", (e) => {
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
             columnaActual++;
-            let result = validNewCasilla(columnaActual);
+            flagMov = 1;
+            moveCasilla(temp);
 
-            if(result == true){
-                detenerIntervalos();
-                return;
-            }
             cantidad_movimientos++;
             document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
-            moveCasilla(temp);
         }
     }
     if (e.code == "ArrowDown" && filaActual < 4){
@@ -150,9 +147,10 @@ window.addEventListener("keyup", (e) => {
         let temp = board[filaActual][columnaActual];
         clean_previous_block();
         filaActual = get_casilla_disponible_abajo();
+        moveCasilla(temp);
+
         cantidad_movimientos++;
         document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
-        moveCasilla(temp);
     }
 });
 
@@ -160,10 +158,16 @@ function validNewCasilla(col){
     let num1 = board[0][col];
     let num2 = board[1][col];
 
-    if (board[0][col] != board[1][col] && board[1][col] != 0){
+    if (num1 != num2 && board[1][col] != 0){
         document.getElementById("gameOver").style.display="flex"; 
         document.getElementById("tryAgain").style.display="flex";
         clearInterval(id_intervalo_tiempo);
+        
+        if (flagMov == 0){
+            columnaActual = -1;
+        }else{
+            columnaActual = 10;
+        }
         
         //Así es para hacer la ventanita del ganador, pero todavía no sé donde va jeje
         //document.getElementById("congrats").style.display="flex"; 
@@ -175,22 +179,20 @@ function newCasilla(){
     let col = get_random_column();
     let cNum = get_random_initial_value();
     board[0][col] = cNum;
-
-    let result = validNewCasilla(col);
-
-    if(result == true){
-        detenerIntervalos();
-        return;
-    }
     
-    total_piezas++;
-    document.getElementById("sumaPiezasV").innerText = total_piezas.toString();
     filaActual = 0;
     columnaActual = col;
     let idCasilla = "0" + col.toString();
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
  
     actualizar_casilla(casillaActual, cNum, true);
+
+    let result = validNewCasilla(col);
+    if(result == true){
+        detenerIntervalos();
+        return;
+    }
+
     id_interval = setInterval(move_casilla_down, 1500);
     intervalos.push(id_interval);
 }
@@ -250,24 +252,24 @@ function actualizarMatriz(){
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
     actualizarMatriz();
+
     console.log(cantidad_movimientos);
     if(board[filaActual][columnaActual] == 0 || board[filaActual][columnaActual] == previous_value){
         if (board[filaActual][columnaActual] == previous_value){
             score += board[filaActual][columnaActual] + previous_value;
         }
+
         board[filaActual][columnaActual] += previous_value;
         actualizarScore();
         casillaActual = document.getElementById(idCasilla);
         actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
     }
-    
 }
 
 function move_casilla_down(){
     if (filaActual == -1){
         filaActual = 0;
     }
-
     if (filaActual == 4 || (board[filaActual + 1][columnaActual] != 0 && board[filaActual + 1][columnaActual] != board[filaActual][columnaActual])){
         newCasilla();
         clearInterval(id_interval);
@@ -284,4 +286,15 @@ function move_casilla_down(){
 function aumentar_tiempo(){
     tiempo++;
     document.getElementById("tiempoV").innerText = tiempo.toString();
+}
+
+function total_piezas_tablero(){
+    total_piezas = 0;
+    for (let row = 0; row < rows; row++){
+        for (let column = 0; column < columns; column++){
+            if (board[row][column] != 0){
+                total_piezas++;
+            }
+        }
+    }
 }

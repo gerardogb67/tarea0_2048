@@ -4,6 +4,14 @@ html {
     background-color: rgb(240, 235, 180);
 }
 
+body{
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+
 #main-title {
     font-size: clamp(35px, 10vw, 100px);
     color: rgb(115, 74, 192); 
@@ -17,8 +25,10 @@ html {
 
 #boton-iniciar {
     font-size: clamp(16px, 3vw, 50px);
-    font-family: 'Handjet', cursive;
+    font-family: 'Russo One', sans-serif;
+    font-size: 20px;
     background-color: rgb(115, 74, 192);
+    border: 3px solid rgb(115, 74, 192);
     color: rgb(240, 235, 180);
     border-radius: 25px;
     padding: 10px 20px;
@@ -27,6 +37,8 @@ html {
 
 .parrafo-estandar {
     font-size: clamp(20px, 4vw, 50px);
+    font-family: 'Russo One', sans-serif;
+    font-size: 40px;
     color:green;
 }
 
