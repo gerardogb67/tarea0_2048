@@ -19,6 +19,27 @@ var intervalos = [];
 // 0 = moveLeft, 1 = movRight
 flagMov = 0;
 
+
+var boton = document.getElementById("tryAgain");
+
+boton.addEventListener("click", function() {
+    board = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ]
+
+    document.getElementById("board").textContent = "";
+    document.getElementById("gameOver").style.display = "none";
+    document.getElementById("tryAgain").style.display = "none";
+    paint_board();
+
+    score = 0;
+    newCasilla();
+});
+
 window.onload = function() {
     paint_board();
     actualizarScore();
@@ -81,6 +102,12 @@ window.addEventListener("keyup", (e) => {
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
             columnaActual--;
+            let result = validNewCasilla(columnaActual);
+
+            if(result == true){
+                detenerIntervalos();
+                return;
+            }
             moveCasilla(temp);
         }
     }
@@ -92,10 +119,19 @@ window.addEventListener("keyup", (e) => {
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
             columnaActual++;
+            let result = validNewCasilla(columnaActual);
+
+            if(result == true){
+                detenerIntervalos();
+                return;
+            }
             moveCasilla(temp);
         }
     }
     if (e.code == "ArrowDown" && filaActual < 4){
+        if (filaActual == -1){
+            filaActual = 0;
+        }
         let temp = board[filaActual][columnaActual];
         clean_previous_block();
         filaActual = get_casilla_disponible_abajo();
@@ -109,6 +145,7 @@ function validNewCasilla(col){
 
     if (board[0][col] != board[1][col] && board[1][col] != 0){
         document.getElementById("gameOver").style.display="flex"; 
+        document.getElementById("tryAgain").style.display="flex";
 
         //Así es para hacer la ventanita del ganador, pero todavía no sé donde va jeje
         //document.getElementById("congrats").style.display="flex"; 
@@ -134,7 +171,7 @@ function newCasilla(){
     casillaActual = document.getElementById(idCasilla); // Devuelve el div con la casilla que aparecion nueva
  
     actualizar_casilla(casillaActual, cNum, true);
-    id_interval = setInterval(move_casilla_down, 1000);
+    id_interval = setInterval(move_casilla_down, 1500);
     intervalos.push(id_interval);
 }
 
@@ -192,9 +229,8 @@ function actualizarMatriz(){
 
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
-
+    actualizarMatriz();
     if(board[filaActual][columnaActual] == 0 || board[filaActual][columnaActual] == previous_value){
-        actualizarMatriz();
         if (board[filaActual][columnaActual] == previous_value){
             score += board[filaActual][columnaActual] + previous_value;
         }

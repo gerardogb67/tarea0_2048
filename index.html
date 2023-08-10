@@ -21,6 +21,12 @@
         <label for="facil">Difícil</label>
     </div>
     <input id="boton-iniciar" type="button" value="Iniciar Juego">
-    <script src="funcionalidad.js"></script>
+    <script>
+        var boton = document.getElementById("boton-iniciar");
+
+        boton.addEventListener("click", function() {
+            window.location.href = "indexGame.html";
+        });
+    </script>
 </body>
 </html>

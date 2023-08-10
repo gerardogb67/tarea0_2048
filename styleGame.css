@@ -5,20 +5,25 @@ html{
 
 body{
 	display: flex;
+    justify-content: center;
+
+	align-content: center;
+}
+
+.bodyV2{
+	display: flex;
 	flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .infoJuego{
 	display: flex;
-	/* border: 2px solid black; */
 	height: 80px;
 	width: 400px;
 	
 	margin-bottom: 10px;
 	justify-content: space-between;
-
+	margin-left: 26px;
 }
 
 .mainTitle {
@@ -69,6 +74,13 @@ body{
 	font-family: 'Patrick Hand', cursive;
 }
 
+.game{
+	height: 550px;
+	width: 800px;
+	display: flex;
+	justify-content: space-evenly;
+}
+
 #board {
 	height: 500px;
 	width: 400px;
@@ -81,6 +93,49 @@ body{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+
+#infoGame {
+	height: 200px;
+	width: 300px;
+	margin: 0 auto;
+
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+
+.tittleData{
+	font-size: 40px;
+	font-family: 'Russo One', sans-serif;
+
+	color: rgb(115, 74, 192); 
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.datosGame{
+	height: 30px;
+	width: 280px;
+
+	/* border: 3px solid black; */
+
+	display: flex;
+	justify-content: flex-start ;
+	column-gap: 5px;
+}
+
+.dataGen{
+	color: rgb(188, 140, 255);
+	font-size: 20px;
+	font-family: 'Handjet', cursive;
+}
+
+.dataGenV{
+	color: black;
+	font-size: 20px;
+	font-family: 'Handjet', cursive;
 }
 
 .casilla {
@@ -234,5 +289,19 @@ body{
 	align-items: center;
 
 	position: absolute;
+	display: none;
+}
+
+#tryAgain{
+	padding: 12px 24px;
+	background-color: #4CAF50;
+	color: white;
+	font-size: 18px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+
+	position: fixed;
+	top: 420px;
 	display: none;
 }

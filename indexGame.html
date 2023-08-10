@@ -9,22 +9,46 @@
     
 </head>
 <body>
-    <div class="infoJuego">
-        <h1 class="mainTitle" id="main-title">2048 Game</h1>
-        <div class="contenedorPuntaje">
-
-            <div class="puntaje">
-                <h3 class="tittlePun">SCORE</h3>
-                <h2 class="numPun" id="score"></h2>
+    <div class="bodyV2">
+        <div class="infoJuego">
+            <h1 class="mainTitle" id="main-title">2048 Game</h1>
+            <div class="contenedorPuntaje">
+    
+                <div class="puntaje">
+                    <h3 class="tittlePun">SCORE</h3>
+                    <h2 class="numPun" id="score"></h2>
+                </div>
+    
+            </div>    
+        </div>
+        
+        <div class="game">
+            <div id="board"></div>
+            <div id="infoGame">
+                <h3 class="tittleData">RESUMEN DEL JUEGO</h3>
+    
+                <div class="datosGame">
+                    <h2 class="dataGen" id="sumaPiezas">Total de piezas: </h2>
+                    <h2 class="dataGenV" id="sumaPiezasV"></h2>
+                </div>
+    
+                <div class="datosGame">
+                    <h2 class="dataGen" id="movimientos">Cantidad de movimientos: </h2>
+                    <h2 class="dataGenV" id="movimientosV"></h2>
+                </div>
+    
+                <div class="datosGame">
+                    <h2 class="dataGen" id="tiempo">Tiempo de la partida: </h2>
+                    <h2 class="dataGenV" id="movimientosV"></h2>
+                </div>
+    
             </div>
-
-        </div>    
-    </div>
-        <div id="board"></div>
+        </div>
     </div>
 
     <div class="lose" id="gameOver">GAME OVER</div>
     <div class="win" id="congrats">YOU WIN!!</div>
+    <div id="tryAgain">TRY AGAIN</div>
 
     <script src="funcionalidad.js"></script>
 </body>
