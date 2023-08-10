@@ -16,6 +16,12 @@ var columnaActual = 0;
 let id_interval;
 var intervalos = [];
 
+let tiempo = 0;
+let id_intervalo_tiempo;
+
+let cantidad_movimientos = 0;
+
+let total_piezas = 0;
 // 0 = moveLeft, 1 = movRight
 flagMov = 0;
 
@@ -34,13 +40,18 @@ boton.addEventListener("click", function() {
     document.getElementById("board").textContent = "";
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("tryAgain").style.display = "none";
+    
+    id_intervalo_tiempo = setInterval(aumentar_tiempo,1000);
     paint_board();
-
     score = 0;
+    tiempo = 0;
+    cantidad_movimientos = 0;
+    total_piezas = 0;
     newCasilla();
 });
 
 window.onload = function() {
+    id_intervalo_tiempo = setInterval(aumentar_tiempo,1000);
     paint_board();
     actualizarScore();
     newCasilla();
@@ -108,6 +119,8 @@ window.addEventListener("keyup", (e) => {
                 detenerIntervalos();
                 return;
             }
+            cantidad_movimientos++;
+            document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
             moveCasilla(temp);
         }
     }
@@ -125,6 +138,8 @@ window.addEventListener("keyup", (e) => {
                 detenerIntervalos();
                 return;
             }
+            cantidad_movimientos++;
+            document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
             moveCasilla(temp);
         }
     }
@@ -135,6 +150,8 @@ window.addEventListener("keyup", (e) => {
         let temp = board[filaActual][columnaActual];
         clean_previous_block();
         filaActual = get_casilla_disponible_abajo();
+        cantidad_movimientos++;
+        document.getElementById("movimientosV").innerText = cantidad_movimientos.toString();
         moveCasilla(temp);
     }
 });
@@ -146,7 +163,8 @@ function validNewCasilla(col){
     if (board[0][col] != board[1][col] && board[1][col] != 0){
         document.getElementById("gameOver").style.display="flex"; 
         document.getElementById("tryAgain").style.display="flex";
-
+        clearInterval(id_intervalo_tiempo);
+        
         //Así es para hacer la ventanita del ganador, pero todavía no sé donde va jeje
         //document.getElementById("congrats").style.display="flex"; 
         return true;
@@ -165,6 +183,8 @@ function newCasilla(){
         return;
     }
     
+    total_piezas++;
+    document.getElementById("sumaPiezasV").innerText = total_piezas.toString();
     filaActual = 0;
     columnaActual = col;
     let idCasilla = "0" + col.toString();
@@ -230,6 +250,7 @@ function actualizarMatriz(){
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
     actualizarMatriz();
+    console.log(cantidad_movimientos);
     if(board[filaActual][columnaActual] == 0 || board[filaActual][columnaActual] == previous_value){
         if (board[filaActual][columnaActual] == previous_value){
             score += board[filaActual][columnaActual] + previous_value;
@@ -258,4 +279,9 @@ function move_casilla_down(){
         filaActual++;
         moveCasilla(temp);
     }
+}
+
+function aumentar_tiempo(){
+    tiempo++;
+    document.getElementById("tiempoV").innerText = tiempo.toString();
 }
