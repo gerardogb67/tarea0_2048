@@ -1,94 +1,333 @@
 html{
     font-family: 'Handjet', cursive;
-    background-color: rgb(242, 239, 233);
+    background-color: rgb(240, 235, 180);
 }
 
-#main-title {
-   font-size: 65px;
-   color: rgb(115, 99, 85); 
-   text-align: left;
-   margin: 10px;
-}
-
+/*Características graficas del cuerpo de la pagina*/
 body{
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+/*Características graficas div que almacena todos los elementos que se visualizan en la pagina*/
+.bodyV2{
 	display: flex;
 	flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
+/*Características graficas del cuadro que almacena el titulo principal y el puntaje*/
 .infoJuego{
-	display: block;
-/*	border: 2px solid black;*/
-	height: 150px;
-	width: 500px;
-	position: relative;
-	margin-bottom: 10px;
-
-}
-
-.tablero {
 	display: flex;
-	justify-content: center;
-    align-items: center;
-/*	border: 2px solid black;*/
-	height: 600px;
-	width: 500px;
+	height: 80px;
+	width: 400px;
+	
 	margin-bottom: 10px;
-
+	justify-content: space-between;
+	margin-left: 26px;
 }
 
+/*Características graficas del titulo del juego*/
+.mainTitle {
+	height: 60px;
+	width: 4500px;
+
+	font-size: 60px;
+	color: rgb(115, 74, 192); 
+
+	text-align: left;
+	margin: 10px;
+}
+
+/*Características graficas del div que almacena el todos los elementos del puntaje*/
 .contenedorPuntaje {
-	color: beige;
-	display: flex;
-	flex-direction: row;
-	justify-content: left;
 	height: 70px;
 	width: 210px;
+
+	display: flex;
+	justify-content: flex-end;
 	margin: 10px;
-	position: absolute;
-	top: 0;
-	right: 0;
 }
 
+/*Características graficas del cuadro que almacena el puntaje(titulo y numero)*/
 .puntaje {
-	display: flex;
-	margin: 5px;
-	height: 55px;
-	width: 90px;
-	border: 2px solid rgb(115, 99, 85);
+	height: 60px;
+	width: 100px;
+	
+	background-color: rgb(249, 255, 207);
+	border: 3px solid rgb(164, 179, 52);
 	border-radius: 10px;
-	flex-direction: column-reverse;
-	justify-content: start;
-	align-items: center;
-	background-color: rgb(191, 167, 138);
-}
 
-.textPun{
-	color: rgb(115, 99, 85);
-	margin: 0px;
-	font-size: 20px;	
-}
-
-.tabFondo{
 	display: flex;
-	flex-direction: row-reverse;
-	align-items: end;
-	justify-content: start;
+	flex-direction: column;
 
-	height: 461px;
-	width: 400px;
-	border-radius: 15px;
-
-	border: 2px solid rgb(191, 167, 138);
-	background-color: rgb(191, 167, 138);
+	text-align: center;
 }
 
+/*Características graficas del titulo del puntaje*/
+.tittlePun{
+	color: rgb(164, 179, 52);
+	margin: 0px;
+	font-size: 30px;	
+}
+
+/*Características graficas del contador del puntaje*/
+.numPun{
+	color: black;
+	margin: -6px;
+	font-size: 25px;	
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+/*Características graficas de la ventana donde se encuentra el tablero del juego*/
+.game{
+	height: 550px;
+	width: 800px;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+/*Características graficas del tablero del juego*/
+#board {
+	height: 500px;
+	width: 400px;
+	
+	background-color: rgb(115, 74, 192);
+	border: 6px solid rgb(115, 74, 192);
+	border-radius: 10px;
+
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/*Características graficas de la ventana donde se encuentra el resumen del Juego*/
+#infoGame {
+	height: 200px;
+	width: 300px;
+	margin: 0 auto;
+
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+
+/*Características graficas del titulo "RESUMEN DEL JUEGO"*/
+.tittleData{
+	font-size: 40px;
+	font-family: 'Russo One', sans-serif;
+
+	color: rgb(115, 74, 192); 
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+/*Características graficas del texto donde se visualiza el resumen del juego*/
+.datosGame{
+	height: 30px;
+	width: 280px;
+
+	display: flex;
+	justify-content: flex-start ;
+	column-gap: 5px;
+}
+
+/*Características graficas del texto donde se visualizan los subtítulos del
+resumen del juego*/
+.dataGen{
+	color: rgb(188, 140, 255);
+	font-size: 20px;
+	font-family: 'Handjet', cursive;
+}
+
+/*Características graficas del texto donde se visualizan los resultados del
+resumen del juego*/
+.dataGenV{
+	color: black;
+	font-size: 20px;
+	font-family: 'Handjet', cursive;
+}
+
+/*Características graficas de las demas casillas del tablero*/
 .casilla {
-	height: 78px;
-	width: 78px;
-	margin: 10px;
-	border: 2px solid rgb(217, 194, 173);
-	background-color: rgb(217, 194, 173);
-	border-radius: 5px;
+	height: 90px;
+	width: 90px;
+	border: 5px solid rgb(115, 74, 192);
+	background-color: rgb(240, 235, 180);
+
+	font-size: 40px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*Características graficas de las casillas del encabezado*/
+.casillaI{
+	height: 90px;
+	width: 90px;
+	border: 5px solid rgb(115, 74, 192);
+	background-color: rgb(115, 74, 192);
+
+	font-size: 40px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*Seccion donde se le asignan un especifico estilo a las fichas de 
+acuerdo al numero que contengan*/
+.num2{
+	background-color: rgb(250, 158, 209);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num4{
+	background-color: rgb(220, 140, 222);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num8{
+	background-color: rgb(222, 168, 246);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num16{
+	background-color: rgb(175, 140, 222);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num32{
+	background-color: rgb(172, 158, 250);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num64{
+	background-color: rgb(217, 165, 216);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num128{
+	background-color: rgb(213, 172, 227);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num256{
+	background-color: rgb(185, 167, 205);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num512{
+	background-color: rgb(183, 172, 227);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num1024{
+	background-color: rgb(165, 169, 217);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.num2048{
+	background-color: rgb(164, 179, 52);
+	color: white;
+	font-size: 40px;
+	font-family: 'Handjet', cursive;
+	font-family: 'Patrick Hand', cursive;
+}
+
+/*Características graficas de la ventana de "Perder"*/
+.lose{
+	height: 200px;
+	width: 350px;
+
+	background-color: rgb(191, 17, 17);
+	border: 10px solid rgb(217, 41, 41);
+	border-radius: 50px;
+
+	font-size: 60px;
+	font-family: 'Russo One', sans-serif;
+
+	color: white; 
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+
+	position: absolute;
+	margin: 0px auto;
+	display: none;
+}
+
+/*Características graficas de la ventana de "Ganar"*/
+.win{
+	height: 200px;
+	width: 350px;
+
+	background-color: rgb(14, 120, 70);
+	border: 10px solid rgb(14, 153, 88);
+	border-radius: 50px;
+
+	font-size: 60px;
+	font-family: 'Russo One', sans-serif;
+
+	color: white; 
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+
+	position: absolute;
+	display: none;
+}
+
+/*Características graficas de la ventana de "Intentar de nuevo"*/
+#tryAgain{
+	padding: 12px 24px;
+	font-family: 'Russo One', sans-serif;
+	color: white;
+	font-size: 18px;
+	border-radius: 6px;
+	cursor: pointer;
+
+	background-color: rgb(164, 179, 52);
+	border: 3px solid rgb(164, 179, 52);
+
+	margin-top: 30px;
+	position: fixed;
+	top: 420px;
+	display: none;
 }
