@@ -1,3 +1,4 @@
+//Variable con la matriz inicial para el juego
 board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -5,31 +6,37 @@ board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
 ]
+
+//Variables con informacion general del Juego 
 var score = 0;
 var rows = 5;
 var columns = 4;
 
+//Variables con la información de la ficha a jugar
 var casillaActual;
 var filaActual = 0;
 var columnaActual = 0;
 
+//Variables que llevan el control de caída de las fichas 
 let id_interval;
 var intervalos = [];
-let previousColum;
 
+//Variables para utilizadas para el dr el resumen del juego 
 let tiempo = 0;
 let id_intervalo_tiempo;
-
 let cantidad_movimientos = 0;
-
 let total_piezas = 0;
 
-// 0 = moveLeft, 1 = movRight
+
+//Bandera que indica si una ficha se movió a la izquierda o derecha 
+//0 = moveLeft, 1 = moveRight
 let flagMov = 0;
 
-
+//Boton encargado de reiniciar el juego una vez perdido o ganado
 var boton = document.getElementById("tryAgain");
 
+//Procedimiento encargado de reestablecer todo las varibles y actualizar el
+//tablero una vez presionado el boton de "tryAgain"
 boton.addEventListener("click", function() {
     board = [
         [0, 0, 0, 0],
@@ -52,6 +59,8 @@ boton.addEventListener("click", function() {
     newCasilla();
 });
 
+//Procedimiento encargado de inicializar el juego, en temas de interfaz 
+//y jugabilidad
 window.onload = function() {
     id_intervalo_tiempo = setInterval(aumentar_tiempo,1000);
     paint_board();
@@ -59,21 +68,23 @@ window.onload = function() {
     newCasilla();
 }
 
+//Procedimiento encargado de colocar las casillas del tablero, donde
+//saldrán o jugarán las fichas del mismo 
 function paint_board(){
     for (let row = 0; row < rows; row++){
         for (let column = 0; column < columns; column++){
             let c = document.createElement("div");
             c.id = row.toString() + column.toString();
             let num = board[row][column];
-            
             actualizar_casilla(c, num, row == 0);
-            
             document.getElementById("board").append(c);
         }
     }
 }
 
-// Cambia el contenido de la casilla y pone el correspondiente al numero que tiene que ser
+//Procedimiento encargado de actualizar a nivel grafico una ficha
+//donde dependiendo del valor se le asigna una clase y id para que 
+//así se llame a la interfaz especifica 
 function actualizar_casilla(casilla, num, esPrimera){
     total_piezas_tablero();
     document.getElementById("sumaPiezasV").innerText = total_piezas.toString();
@@ -91,6 +102,8 @@ function actualizar_casilla(casilla, num, esPrimera){
         casilla.classList.add("num"+num.toString());
 }
 
+//Funcion encargada de buscar el valor 0 en la fila más cercana de 
+//una determinada columna 
 function get_casilla_disponible_abajo(){
     let temp = filaActual;
     while (temp + 1 < rows && board[temp + 1][columnaActual] === 0) {
@@ -99,16 +112,21 @@ function get_casilla_disponible_abajo(){
     return temp;
 }
 
+//Funcion que devuelve un número entero entre 0 y 3 (incluidos).
 function get_random_column() {
-    return Math.floor(Math.random() * 4); // Devuelve un número entero entre 0 y 3 (ambos incluidos).
+    return Math.floor(Math.random() * 4); 
 }
 
+//Funcion que retorna el numero que va a tener la nueva ficha
+//a aparecer en el tablero 
 function get_random_initial_value() {
     let index = Math.floor(Math.random() * 5);
     let values = [2, 4, 2, 8, 2];
     return values[index];
 }
 
+//Procedimiento encargado de llamar y realizar ciertas funciones/procedimientos
+//de acuerdo a la tecla que se presione (movilidad de la ficha)
 window.addEventListener("keyup", (e) => {
     if (e.code == "ArrowLeft" && columnaActual > 0){
         if (filaActual == -1){
@@ -154,6 +172,8 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
+//Funcion que valida que la posicion de una ficha sea valida cuando 
+//aparezca una nueva ficha en el encabezado
 function validNewCasilla(col){
     let num1 = board[0][col];
     let num2 = board[1][col];
@@ -175,6 +195,9 @@ function validNewCasilla(col){
     }
 }
 
+//Procedimiento que se encarga de crear una nueva ficha, le asigna el numero de la 
+//ficha y le actualiza la interfaz de la ficha. Además que inicializa la movilidad
+//de la misma
 function newCasilla(){
     let col = get_random_column();
     let cNum = get_random_initial_value();
@@ -197,12 +220,16 @@ function newCasilla(){
     intervalos.push(id_interval);
 }
 
+//Procedimiento encargado de detener todos los intervalos que se están ejecutando 
+//cuando se están mobilizando para abajo
 function detenerIntervalos() {
     for (var i = 0; i < intervalos.length; i++) {
         clearInterval(intervalos[i]);
     }
 }
 
+//Procedimiento que se encarga de limpiar la posición anterior de la ficha jugando 
+//a nivel de interfaz y logico
 function clean_previous_block(){
     board[filaActual][columnaActual] = 0;
     idCasilla = filaActual.toString() + columnaActual.toString();
@@ -210,12 +237,16 @@ function clean_previous_block(){
     actualizar_casilla(casillaActual, 0, filaActual == 0);
 }
 
+//Procedimiento que se encarga de actualizar a nivel gráfico el puntaje del juego
 function actualizarScore(){
     let textScore = document.getElementById("score");
     textScore.innerText = "";
     textScore.innerText = score.toString();
 }
 
+//Procedimiento que se encarga de verificar que todas las fichas se encuentren abajo 
+//es decir, que no queden huecos en la matriz y simule la caída del tetris. Actualiza
+//también a nivel gráfico 
 function actualizarMatriz(){
     for (let row = 4; row > 0; row--){
         for (let column = 0; column < columns; column++){
@@ -249,6 +280,9 @@ function actualizarMatriz(){
     }
 }
 
+//Procedimiento encargado de mover una casilla de acuerdo a la tecla presionada, y si
+//se realiza la suma de fichas, aumenta el "Puntaje", actualiza a nivel gráfico y 
+//actualiza la matriz para eliminar los posibles espacios vacíos 
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
     actualizarMatriz();
@@ -266,6 +300,8 @@ function moveCasilla(previous_value){
     }
 }
 
+//Procedimiento encargado de simular la caida de la ficha en el tablero de manera 
+//automatica, esto a nivel grafico y logico
 function move_casilla_down(){
     if (filaActual == -1){
         filaActual = 0;
@@ -283,11 +319,15 @@ function move_casilla_down(){
     }
 }
 
+//Procedimiento encargado de llevar el tiempo de la partida jugando, hasta 
+//que se gane o pierda
 function aumentar_tiempo(){
     tiempo++;
     document.getElementById("tiempoV").innerText = tiempo.toString();
 }
 
+//Procedimiento encargado de verificar la cantidad de fichas actual en el tablero 
+//y además verifica si ya alguna ficha llegó a 2048 para mostrar la pantalla de ganador 
 function total_piezas_tablero(){
     total_piezas = 0;
     for (let row = 0; row < rows; row++){
