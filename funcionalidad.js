@@ -342,7 +342,7 @@ function total_piezas_tablero(){
     }
 }
 
-
+//Procedimiento encargado de mostrar en pantalla la ventana de "ganador"
 function ventanaGanador(){
     document.getElementById("congrats").style.display="flex";
     document.getElementById("tryAgain").style.display="flex";
