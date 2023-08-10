@@ -74,6 +74,9 @@ function get_random_initial_value() {
 
 window.addEventListener("keyup", (e) => {
     if (e.code == "ArrowLeft" && columnaActual > 0){
+        if (filaActual == -1){
+            filaActual = 0;
+        }
         if (board[filaActual][columnaActual - 1] == 0 || board[filaActual][columnaActual - 1] == board[filaActual][columnaActual]){
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
@@ -82,6 +85,9 @@ window.addEventListener("keyup", (e) => {
         }
     }
     if (e.code == "ArrowRight" && columnaActual < columns - 1){
+        if (filaActual == -1){
+            filaActual = 0;
+        }
         if (board[filaActual][columnaActual + 1] == 0 || board[filaActual][columnaActual + 1] == board[filaActual][columnaActual]){
             let temp = board[filaActual][columnaActual];
             clean_previous_block();
