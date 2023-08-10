@@ -332,9 +332,25 @@ function total_piezas_tablero(){
     total_piezas = 0;
     for (let row = 0; row < rows; row++){
         for (let column = 0; column < columns; column++){
-            if (board[row][column] != 0){
+            if (board[row][column] == 2048){
+                ventanaGanador();
+                return;
+            }else if (board[row][column] != 0){
                 total_piezas++;
             }
         }
+    }
+}
+
+
+function ventanaGanador(){
+    document.getElementById("congrats").style.display="flex";
+    document.getElementById("tryAgain").style.display="flex";
+    clearInterval(id_intervalo_tiempo);
+    
+    if (flagMov == 0){
+        columnaActual = -1;
+    }else{
+        columnaActual = 10;
     }
 }
