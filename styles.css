@@ -4,6 +4,7 @@ html {
     background-color: rgb(240, 235, 180);
 }
 
+/*Caracteristicas graficas del cuerpo de la pagina*/
 body{
 	display: flex;
     justify-content: center;
@@ -12,17 +13,20 @@ body{
 	align-content: center;
 }
 
+/*Caracteristicas graficas del titulo principal*/
 #main-title {
     font-size: clamp(35px, 10vw, 100px);
     color: rgb(115, 74, 192); 
     margin-bottom: 0px;
 }
 
+/*Caracteristicas graficas del texto de los autores del esta version del juego*/
 #autores {
     font-size: clamp(15px, 3vw, 35px);
     color: green;
 }
 
+/*Caracteristicas graficas del boton para iniciar el juego*/
 #boton-iniciar {
     font-size: clamp(16px, 3vw, 50px);
     font-family: 'Russo One', sans-serif;
@@ -35,20 +39,10 @@ body{
     cursor: pointer;
 }
 
+/*Caracteristicas graficas de un texto normal*/
 .parrafo-estandar {
     font-size: clamp(20px, 4vw, 50px);
     font-family: 'Russo One', sans-serif;
     font-size: 40px;
     color:green;
-}
-
-.opciones {
-    font-size: clamp(15px, 3vw, 35px);
-    color: green;
-    margin-bottom: 35px;
-    cursor: pointer;
-}
-
-input[type="radio"] {
-    cursor: pointer;
 }
