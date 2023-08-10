@@ -4,7 +4,7 @@ board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1024, 512, 256, 128],
+    [0, 0, 0, 0],
 ]
 
 //Variables con informacion general del Juego 
