@@ -4,7 +4,7 @@ board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [0, 0, 0, 0],
+    [1024, 512, 256, 128],
 ]
 
 //Variables con informacion general del Juego 
@@ -49,7 +49,8 @@ boton.addEventListener("click", function() {
     document.getElementById("board").textContent = "";
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("tryAgain").style.display = "none";
-    
+    document.getElementById("congrats").style.display = "none";
+
     id_intervalo_tiempo = setInterval(aumentar_tiempo,1000);
     paint_board();
     score = 0;
@@ -285,6 +286,7 @@ function actualizarMatriz(){
 //actualiza la matriz para eliminar los posibles espacios vacíos 
 function moveCasilla(previous_value){
     let idCasilla = filaActual.toString() + columnaActual.toString(); 
+    let temp = board[filaActual][columnaActual] + previous_value;
     actualizarMatriz();
 
     console.log(cantidad_movimientos);
@@ -297,6 +299,8 @@ function moveCasilla(previous_value){
         actualizarScore();
         casillaActual = document.getElementById(idCasilla);
         actualizar_casilla(casillaActual, board[filaActual][columnaActual], false);
+        if (temp == 2048)
+            ventanaGanador();
     }
 }
 
@@ -347,7 +351,7 @@ function ventanaGanador(){
     document.getElementById("congrats").style.display="flex";
     document.getElementById("tryAgain").style.display="flex";
     clearInterval(id_intervalo_tiempo);
-    
+    detenerIntervalos();
     if (flagMov == 0){
         columnaActual = -1;
     }else{
